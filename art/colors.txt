@@ -1,0 +1,2 @@
+main: #66D2BB
+darker: #4D9F8E
