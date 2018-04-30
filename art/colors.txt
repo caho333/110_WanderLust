@@ -1,2 +1,12 @@
-main: #66D2BB
+--[ Wanderlust ]-------------
+main:   #66D2BB
 darker: #4D9F8E
+text:   #FFFFFF
+
+--[ Jaunt ]------------------
+background-lighter: #450E52
+background-grayer:  #4A2652
+foreground:         #AF23D2
+foreground-lighter: #C265D9
+foreground-darker:  #841A9F
+text:               #FFFFFF
