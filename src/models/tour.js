@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 let tourSchema = new mongoose.Schema({
-	_id: Number,
 	title: String,
 	created_by: String, //Username
 	comments: [
