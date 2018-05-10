@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 let api = require('./api');
-let router = require('./api')
+let router = require('./router');
 
 // Configure env file
 require('dotenv').config();
