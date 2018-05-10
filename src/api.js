@@ -4,9 +4,9 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 var session = require('express-session')
 
-const User = require('./models/User');
-const Site = require('./models/Site');
-const Tour = require('./models/Tour');
+const User = require('./models/user');
+const Site = require('./models/site');
+const Tour = require('./models/tour');
 
 const api = express.Router();
 

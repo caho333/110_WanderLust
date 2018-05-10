@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Welcome from '../Welcome';
 
 class App extends Component {
   state = {
@@ -26,6 +27,9 @@ class App extends Component {
       <div>
         Hello World! Welcome to App container
         <p>{this.state.response}</p>
+
+        Welcome to Jaunt!
+        <Welcome />
       </div>
     );
   }
