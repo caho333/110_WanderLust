@@ -3,10 +3,18 @@ main:   #66D2BB
 darker: #4D9F8E
 text:   #FFFFFF
 
---[ Jaunt ]------------------
-background-lighter: #450E52
-background-grayer:  #4A2652
-foreground:         #AF23D2
-foreground-lighter: #C265D9
-foreground-darker:  #841A9F
-text:               #FFFFFF
+--[ Jaunt Theme ]------------
+background:        #450E52
+background-grayer: #4A2652
+accent:            #AF23D2
+accent-lighter:    #C265D9
+accent-darker:     #841A9F
+text:              #FFFFFF
+
+--[ Site colors ]------------
+search-background: #DEDEDE
+back-background:   #EBEBEB
+divider-lines:     #6B6B6B
+upvote:            #139E6E
+downvote:          #850935
+read-more:         #008BFF
