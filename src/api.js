@@ -2,7 +2,7 @@
 
 const express = require('express');
 const bcrypt = require('bcryptjs');
-var session = require('express-session')
+const session = require('express-session');
 
 const User = require('./models/user');
 const Site = require('./models/site');
@@ -38,7 +38,7 @@ api.get('/user/:id', (req, res) => {
 
 
 // POST /user
-api.get('/user', (req, res) => {
+api.post('/user', (req, res) => {
   let hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
   User.create({
@@ -79,7 +79,7 @@ api.put('/user/:id', (req, res) => {
 api.get('/activities', (req, res) => {
   Site.find({type: 'Activity'}, function(err, activities) {
     if(err)
-      return res.status(500).send("There was a problem fetching the activities.")
+      return res.status(500).send("There was a problem fetching the activities.");
 
     res.status(200).send(activities);
   });
@@ -91,7 +91,7 @@ api.get('/activities', (req, res) => {
 api.get('/landmarks', (req, res) => {
   Site.find({type: 'Landmark'}, function (err, landmarks) {
     if(err)
-      return res.status(500).send("There was a problem fetching the landmarks.")
+      return res.status(500).send("There was a problem fetching the landmarks.");
 
     res.status(200).send(landmarks);
   });
