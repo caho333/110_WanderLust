@@ -15,8 +15,16 @@ class Welcome extends Component {
 			profile: response.profileObj.imageUrl,
 			preferences: [] // TODO get preferences from client side
 		};
-		console.log(localUser);
-		// TODO send to database
+    fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(localUser)
+    }).then((res) => {
+      // TODO router change
+    });
 	};
 
 	const loginFailureGoogle = (response) => {
