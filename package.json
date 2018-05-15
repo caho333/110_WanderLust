@@ -12,21 +12,21 @@
     "express-session": "^1.15.6",
     "mongoose": "^5.0.17",
     "nodemon": "^1.17.4",
-    "package": "^1.0.1",
     "path": "^0.12.7",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-google-login": "^3.2.1",
     "react-scripts": "^1.1.4"
   },
   "devDependencies": {
     "expect": "^1.20.2",
-    "mocha": "^3.4.2",
+    "mocha": "^5.1.1",
     "supertest": "^3.0.0"
   },
   "scripts": {
     "client": "react-scripts start",
     "server": "nodemon src/server.js",
-    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

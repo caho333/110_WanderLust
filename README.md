@@ -1,11 +1,11 @@
 ## `npm` scripts
 All npm scripts are defined in `package.json`
-- `yarn client` runs the client side react
-- `yarn server` runs the server side express API
-- `yarn start` concurrently runs client and server app
-- `yarn test` runs tests defined under the test directory
+- `npm run client` runs the client side react
+- `npm run server` runs the server side express API
+- `npm start` concurrently runs client and server app
+- `npm run test` runs tests defined under the test directory
 
-## Yarn Package Mangement
-- `yarn add package_name` to add node packages
-- `yarn remove package_name` to remove node packages
-- `yarn install` to install all packages for the app
+## `npm` Package Management
+- `npm install package_name` to add node packages
+- `npm uninstall package_name` to remove node packages
+- `npm install` to install all packages for the app
