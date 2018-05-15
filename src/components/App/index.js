@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Welcome from '../Welcome';
+import { BrowerRouter as Router, Link, Route } from 'react-router-dom';
+import Welcome from '../welcome';
 
 class App extends Component {
   state = {
