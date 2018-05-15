@@ -23,6 +23,12 @@ api.get('/authenticate', (req, res) => {
 
 });
 
+// POST /login
+api.post('/login', (req, res) => {
+  User.create(req.body).then(function (localUser) {
+    res.send(localUser);
+  });
+});
 
 // GET /user/:id
 api.get('/user/:id', (req, res) => {
@@ -56,11 +62,11 @@ api.get('/user', (req, res) => {
 
 // DELETE /user/:id
 api.delete('/user/:id', (req, res) => {
-    User.findByIdAndRemove(req.params.id, function (err, user) {
-      if(err)
-        return res.status(500).send("There was a problem deleting the user.");
+  User.findByIdAndRemove(req.params.id, function (err, user) {
+    if(err)
+      return res.status(500).send("There was a problem deleting the user.");
 
-      res.status(200).send("User "+ user.username +" was deleted.");
+    res.status(200).send("User "+ user.username +" was deleted.");
   });
 
 });

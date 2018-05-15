@@ -9,12 +9,12 @@ let tourSchema = new mongoose.Schema({
 			comment: String,
 			created_at: Date,
 			likes: Number,
-			dislikes: Number
+			dislikes: Number,
+      reply_to: String
 		}
 	],
 	activities: [
 		{
-			_id: Number,
 			price: String,
 			duration: String,
 			images: [String]
@@ -22,7 +22,6 @@ let tourSchema = new mongoose.Schema({
 	],
 	landmarks: [
 		{
-			_id: Number,
 			images: [String]
 		}
 	],
