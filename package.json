@@ -22,13 +22,13 @@
   },
   "devDependencies": {
     "expect": "^1.20.2",
-    "mocha": "^3.4.2",
+    "mocha": "^5.1.1",
     "supertest": "^3.0.0"
   },
   "scripts": {
     "client": "react-scripts start",
     "server": "nodemon src/server.js",
-    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

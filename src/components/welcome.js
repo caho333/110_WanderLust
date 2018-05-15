@@ -14,38 +14,45 @@ class Welcome extends Component {
 			username: response.profileObj.email,
 			profile: response.profileObj.imageUrl,
 			preferences: [] // TODO get preferences from client side
-		}
-		console.log(localUser);
-		// TODO send to database
-	}
+		};
+    fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(localUser)
+    }).then((res) => {
+      // TODO router change
+    });
+	};
 
 	const loginFailureGoogle = (response) => {
-	  	console.log("login failed");
-	}
+	  console.log("login failed");
+	};
 
 	const logout = () => {
-	    const auth2 = window.gapi.auth2.getAuthInstance()
-	    if (auth2 != null) {
-	      console.log("logged out");
-	      auth2.signOut().then(
-	        auth2.disconnect().then(this.props.onLogoutSuccess)
-	      )
-	    }
-	}
+	  const auth2 = window.gapi.auth2.getAuthInstance();
+    if (auth2 != null) {
+      console.log("logged out");
+      auth2.signOut().then(
+          auth2.disconnect().then(this.props.onLogoutSuccess)
+      )
+    }
+	};
 
-    return (
-      <div>
-		  <GoogleLogin
-		    clientId="273896874134-q55haki4prpn8n6tpj9bbtggm7vjt4gs.apps.googleusercontent.com"
-		    buttonText="Google Login"
-		    onSuccess={loginSuccessGoogle}
-		    onFailure={loginFailureGoogle}
-		  />
-		  <GoogleLogout
-      		buttonText="Logout"
-      		onLogoutSuccess={logout}
-	      >
-    	  </GoogleLogout>
+	return (
+	    <div>
+        <GoogleLogin
+            clientId="273896874134-q55haki4prpn8n6tpj9bbtggm7vjt4gs.apps.googleusercontent.com"
+            buttonText="Google Login"
+            onSuccess={loginSuccessGoogle}
+            onFailure={loginFailureGoogle}
+        />
+        <GoogleLogout
+            buttonText="Logout"
+            onLogoutSuccess={logout}
+        />
       </div>
     );
   }
