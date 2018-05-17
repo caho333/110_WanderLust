@@ -3,9 +3,11 @@ import GoogleLogin from 'react-google-login';
 import { GoogleLogout } from 'react-google-login';
 
 class Welcome extends Component {
-  render() {
+  state = {
+    signedIn: false
+  };
 
-	const loginSuccessGoogle = (response) => {
+  loginSuccessGoogle = (response) => {
 		console.log("success");
 		let localUser = {
 			token: response.tokenId,
@@ -24,37 +26,43 @@ class Welcome extends Component {
       body: JSON.stringify(localUser)
     }).then((res) => {
       // TODO router change
+
     });
 	};
 
-	const loginFailureGoogle = (response) => {
+	loginFailureGoogle = (response) => {
 	  console.log("login failed");
+	  this.setState({signedIn: false});
 	};
 
-	const logout = () => {
+	logout = () => {
 	  const auth2 = window.gapi.auth2.getAuthInstance();
     if (auth2 != null) {
       console.log("logged out");
-      auth2.signOut().then(
-          auth2.disconnect().then(this.props.onLogoutSuccess)
+      auth2.signOut().then( function cb() {
+            auth2.disconnect().then(function cb() {
+              this.setState({signedIn: false});
+            });
+          }
       )
     }
 	};
 
-	return (
-	    <div>
-        <GoogleLogin
-            clientId="273896874134-q55haki4prpn8n6tpj9bbtggm7vjt4gs.apps.googleusercontent.com"
-            buttonText="Google Login"
-            onSuccess={loginSuccessGoogle}
-            onFailure={loginFailureGoogle}
-        />
-        <GoogleLogout
-            buttonText="Logout"
-            onLogoutSuccess={logout}
-        />
-      </div>
-    );
+  render() {
+    return (
+        <div>
+          <GoogleLogin
+              clientId="273896874134-q55haki4prpn8n6tpj9bbtggm7vjt4gs.apps.googleusercontent.com"
+              buttonText="Google Login"
+              onSuccess={this.loginSuccessGoogle}
+              onFailure={this.loginFailureGoogle}
+          />
+          <GoogleLogout
+              buttonText="Logout"
+              onLogoutSuccess={this.logout}
+          />
+        </div>
+      );
   }
 }
 
