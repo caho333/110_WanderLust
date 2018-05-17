@@ -15,6 +15,7 @@ let tourSchema = new mongoose.Schema({
 	],
 	activities: [
 		{
+		  site_id: String,
 			price: String,
 			duration: String,
 			images: [String]
@@ -22,6 +23,7 @@ let tourSchema = new mongoose.Schema({
 	],
 	landmarks: [
 		{
+		  site_id: String,
 			images: [String]
 		}
 	],
