@@ -3,6 +3,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
+const jwt = require('jsonwebtoken');
 
 const User = require('./models/user');
 const Site = require('./models/site');
@@ -10,16 +11,63 @@ const Tour = require('./models/tour');
 
 const api = express.Router();
 
+let passport = require("passport");
+const passportJWT = require("passport-jwt");
 
-// set up port
-// const API_PORT = process.env.API_PORT || 3001;
+let ExtractJwt = passportJWT.ExtractJwt;
+let JwtStrategy = passportJWT.Strategy;
 
+// Json Web Token Passport Configuration
+// -----------------------------------------------------------------------------
+let jwtOptions = {};
+jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
+jwtOptions.secretOrKey = 'tasmanianDevil';
+
+let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
+  console.log('payload received', jwt_payload);
+  // usually this would be a database call:
+  let user = User.findById(jwt_payload.id, (err, user) => {
+    if (user) {
+      next(null, user);
+    } else {
+      next(null, false);
+    }
+  });
+});
+
+passport.use(strategy);
+
+// Endpoints
+// -----------------------------------------------------------------------------
 api.get('/', (req, res) => {
   res.send({ express: 'Hello From Express API' });
 });
 
-// TODO: GET /authenticate
-api.get('/authenticate', (req, res) => {
+/**
+ * GET /authenticate
+ * @param {String} username - user name
+ * @param {String} password - user password
+ * @return {String} token
+ */
+api.post('/auth', (req, res) => {
+
+  if(!req.body.name || !req.body.password) {
+    return res.status(500).json("No username or password provided.");
+  }
+
+  let name = req.body.name;
+  let password = req.body.password;
+
+
+  console.log("password = " + req.body.password);
+  User.findOne({username: name}, (err, user) => {
+    // if( !(password === user.password) )
+    //   res.status(401).json({message: "passwords did not match."});
+
+    let payload = {id: user.id};
+    let token = jwt.sign(payload, jwtOptions.secretOrKey);
+    return res.status(200).json({message: "enjoy your token", token: token});
+  });
 
 });
 

@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 // used to create, sign, and verify tokens
 const jwt = require('jsonwebtoken');
 // get our mongoose model
-const User   = require('../src/models/user');
+const User = require('../src/models/user');
 
 let api = require('./api');
 let router = require('./router');
@@ -18,7 +18,7 @@ let router = require('./router');
 require('dotenv').config();
 const app = express();
 
-var port = process.env.PORT || 3001; // used to create, sign, and verify tokens
+let port = process.env.API_PORT || 3001; // used to create, sign, and verify tokens
 
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
@@ -59,7 +59,6 @@ app.use(function (err, req, res, next) {
 
 // configure the API to use bodyParser and look for JSON data in the request body
 app.use('/api', api);
-app.use('/', router);
 
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -79,7 +78,7 @@ app.get('/setup', function(req, res) {
   const vincent = new User({
     permission: '1',
     username: 'Vince',
-    email: 'vzwu@ucsd.edu',
+    email: 'vzwu@ucsd.edu'
   });
 
   // save the sample user
