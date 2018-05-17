@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowerRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
+import Landing from '../landing';
 import Welcome from '../welcome';
 
 class App extends Component {
@@ -7,11 +8,13 @@ class App extends Component {
     response: ''
   };
 
+
   componentDidMount() {
     this.callApi()
       .then(res => this.setState({response: res.express}))
       .catch(err => console.log(err));
 
+    process.title = "Jaunt";
   }
 
   callApi = async () => {
@@ -25,13 +28,20 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        Hello World! Welcome to App container
-        <p>{this.state.response}</p>
+      <Router>
+        <div>
+          <p>Welcome to Jaunt!</p>
 
-        Welcome to Jaunt!
-        <Welcome />
-      </div>
+          <p><Link to="/">Home</Link></p>
+          <p><Link to="/welcome">Sign In</Link></p>
+
+          <p><Link to="/map">Go To Map</Link></p>
+
+          <hr />
+          <Route exact path="/"/>
+          <Route path="/welcome" component={Welcome} />
+        </div>
+      </Router>
     );
   }
 }
