@@ -15,7 +15,7 @@ class Welcome extends Component {
 			profile: response.profileObj.imageUrl,
 			preferences: [] // TODO get preferences from client side
 		};
-    fetch('/api/login', {
+    fetch('/api/auth', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -24,7 +24,11 @@ class Welcome extends Component {
       body: JSON.stringify(localUser)
     }).then((res) => {
       // TODO router change
+      return res.json();
+    }).then(function(json) {
+      console.log(json);
     });
+
 	};
 
 	const loginFailureGoogle = (response) => {

@@ -4,6 +4,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
+const {OAuth2Client} = require('google-auth-library');
 
 const User = require('./models/user');
 const Site = require('./models/site');
@@ -25,8 +26,8 @@ jwtOptions.secretOrKey = 'tasmanianDevil';
 
 let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
   console.log('payload received', jwt_payload);
-  // usually this would be a database call:
-  let user = User.findById(jwt_payload.id, (err, user) => {
+
+  let user = User.findOne({username: jwt_payload.id}, (err, user) => {
     if (user) {
       next(null, user);
     } else {
@@ -37,6 +38,25 @@ let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
 
 passport.use(strategy);
 
+// Google Auth Config
+// -----------------------------------------------------------------------------
+const client = new OAuth2Client(process.env.CLIENT_ID);
+async function verify(token) {
+  console.log("Verifying token");
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: process.env.CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+    // Or, if multiple clients access the backend:
+    //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+  });
+
+  const payload = ticket.getPayload();
+  const userid = payload['sub'];
+  // If request specified a G Suite domain:
+  //const domain = payload['hd'];
+  console.log("done verifying");
+}
+
 // Endpoints
 // -----------------------------------------------------------------------------
 api.get('/', (req, res) => {
@@ -44,30 +64,56 @@ api.get('/', (req, res) => {
 });
 
 /**
- * GET /authenticate
+ * POST /auth
  * @param {String} username - user name
- * @param {String} password - user password
- * @return {String} token
+ * @param {String} token - google auth token
+ * @return {String} api token
  */
 api.post('/auth', (req, res) => {
 
-  if(!req.body.name || !req.body.password) {
-    return res.status(500).json("No username or password provided.");
+  if(!req.body.username || !req.body.token) {
+    return res.status(500).json("No username or token provided.");
   }
 
-  let name = req.body.name;
-  let password = req.body.password;
+  let name = req.body.username;
+  let token = req.body.token;
 
+  function callback() {
+    console.log("here");
+    User.findOne({username: name}, (err, user) => {
 
-  console.log("password = " + req.body.password);
-  User.findOne({username: name}, (err, user) => {
-    // if( !(password === user.password) )
-    //   res.status(401).json({message: "passwords did not match."});
+      // if user does not exist create a new user
+      if(!user) {
+        user = new User({
+          username: req.body.username,
+          email: req.body.email,
+          permission: req.body.permission,
+          profile: req.body.profile
+        });
+        user.save();
+      }
 
-    let payload = {id: user.id};
-    let token = jwt.sign(payload, jwtOptions.secretOrKey);
-    return res.status(200).json({message: "enjoy your token", token: token});
-  });
+      // create API token
+      let payload = {id: user.username, token: req.body.token};
+      let token = jwt.sign(payload, jwtOptions.secretOrKey);
+      res.status(200).send({message: "enjoy your token", token: token});
+    });
+
+  }
+
+  async function ret() {
+    // verify google token
+    await verify(token).catch((err) => {
+      if (err) {
+        console.log(err.toString());
+        return res.status(400).json({message: err.toString()});
+      }
+    });
+
+    callback();
+  }
+
+  return ret();
 
 });
 
@@ -109,7 +155,11 @@ api.post('/user', (req, res) => {
 
 
 // DELETE /user/:id
-api.delete('/user/:id', (req, res) => {
+api.delete('/user/:id', passport.authenticate('jwt', { session: true }), (req, res) => {
+
+  if(!(req.user.id === req.params.id))
+    return res.status(401).send("Bad request.");
+
   User.findByIdAndRemove(req.params.id, function (err, user) {
     if(err)
       return res.status(500).send("There was a problem deleting the user.");

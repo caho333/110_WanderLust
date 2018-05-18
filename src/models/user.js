@@ -2,7 +2,12 @@ const mongoose = require('mongoose');
 
 let userSchema = new mongoose.Schema({
 	permission: Number,
-	username: String,
+	username: {
+	  type: String,
+    required: true,
+    // index: true,
+    // unique: true // no duplicate user names
+  },
 	email: String,
 	created_tours: [Number], // TOUR_ID
 	saved_tours: [Number], // TOUR_ID
