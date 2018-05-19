@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Welcome from '../Welcome';
+import NavBar from './Header/navbar';
+import HomePage from './homePage';
 
 class App extends Component {
   state = {
@@ -10,7 +11,6 @@ class App extends Component {
     this.callApi()
       .then(res => this.setState({response: res.express}))
       .catch(err => console.log(err));
-
   }
 
   callApi = async () => {
@@ -25,15 +25,14 @@ class App extends Component {
   render() {
     return (
       <div>
-        Hello World! Welcome to App container
-        <p>{this.state.response}</p>
+        <NavBar isLoggedIn={true} />
+        <HomePage />
 
-        Welcome to Jaunt!
-        <Welcome />
+        Express Api
+        <p>{this.state.response}</p>
       </div>
     );
   }
 }
 
 export default App;
-/* EOF */

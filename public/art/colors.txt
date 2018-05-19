@@ -11,6 +11,15 @@ accent-lighter:    #C265D9
 accent-darker:     #841A9F
 text:              #FFFFFF
 
+--[ User Icon ]--------------
+background:        #B8B8B8
+main:              #6B6B6B
+
+--[ Sidebar ]----------------
+background:        #705A70
+text:              #FFFFFF
+version:           #5F9E94
+
 --[ Site colors ]------------
 search-background: #DEDEDE
 back-background:   #EBEBEB

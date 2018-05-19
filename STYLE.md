@@ -3,7 +3,6 @@
 - Indentation on lines will be done with 2 spaces, not tabs
 - Between 80-100 maximum characters per line
 - Line endings will be CRLF (\r\n)
-- Place an /* EOF */ comment at the end of every file
 - Filenames are `camelCase`: lower case letter on first word followed by upper case for
  other words
   - Example: `app.js`, `searchBar.js`
@@ -40,5 +39,3 @@ The `[featurename]` will use `snake_case`: all lowercase with underscores separa
 ### Commit Messages
 Commit messages should be no longer than one sentence long, describing the actual
 changes in the code concisely.
-
-/* EOF */
