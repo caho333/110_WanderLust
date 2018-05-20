@@ -4,32 +4,39 @@ darker: #4D9F8E
 text:   #FFFFFF
 
 --[ Jaunt Theme ]------------
-background:        #450E52
-background-grayer: #4A2652
-accent:            #AF23D2
-accent-lighter:    #C265D9
-accent-darker:     #841A9F
-text:              #FFFFFF
+background:         #450E52
+background-grayer:  #4A2652
+accent:             #AF23D2
+accent-lighter:     #C265D9
+accent-darker:      #841A9F
+text:               #FFFFFF
 
 --[ User Icon ]--------------
-background:        #B8B8B8
-main:              #6B6B6B
+background:         #B8B8B8
+main:               #6B6B6B
 
 --[ Sidebar ]----------------
-background:        #705A70
-text:              #FFFFFF
-version:           #5F9E94
+background:         #705A70
+text:               #FFFFFF
+version:            #5F9E94
 
 --[ Site colors ]------------
-search-background: #DEDEDE
-back-background:   #EBEBEB
+search-background:  #DEDEDE
+back-background:    #EBEBEB
 
-active-tab-text:   #450E52
-active-tab-bg:     #FFFFFF
-inactive-tab-text: #450E52
-inactive-tab-bg:   #F6F6F6
+active-tab-text:    #450E52
+active-tab-bg:      #FFFFFF
+inactive-tab-text:  #450E52
+inactive-tab-bg:    #F6F6F6
 
-divider-lines:     #6B6B6B
-upvote:            #139E6E
-downvote:          #850935
-link-text:         #008BFF
+text:               #000000
+deemph-text:        #8C8C8C
+divider-lines:      #6B6B6B
+upvote:             #139E6E
+downvote:           #850935
+link-text:          #008BFF
+
+text-insertion-underline:   #1F1F1F
+
+add-activity-button:    #139E6E
+add-photo-button:       #8C8C8C
