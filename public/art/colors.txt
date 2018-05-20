@@ -23,7 +23,13 @@ version:           #5F9E94
 --[ Site colors ]------------
 search-background: #DEDEDE
 back-background:   #EBEBEB
+
+active-tab-text:   #450E52
+active-tab-bg:     #FFFFFF
+inactive-tab-text: #450E52
+inactive-tab-bg:   #F6F6F6
+
 divider-lines:     #6B6B6B
 upvote:            #139E6E
 downvote:          #850935
-read-more:         #008BFF
+link-text:         #008BFF
