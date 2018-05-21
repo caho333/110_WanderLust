@@ -32,7 +32,8 @@ let tourSchema = new mongoose.Schema({
 	duration: String,
 	likes: Number,
 	dislikes: Number,
-	tags: [String]
+	tags: [String],
+  images: [String]
 });
 
 const Tour = mongoose.model('Tour', tourSchema);
